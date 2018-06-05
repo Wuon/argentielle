@@ -1,0 +1,49 @@
+<body>
+    {{#if loggingIn}}
+    {{else}}
+        {{#if currentUser}}
+        <div class="container">
+            <header>
+                <h1 class="gradient-border">Argentielle</h1>
+                <label class="show-food">
+                    <input type="checkbox" />
+                    Show Food Only
+                </label>
+                <button id="loginWithGoogle">Login</button>
+                <button id="logoutWithGoogle">Logout</button>
+                    <h1>Hello, {{name}} </h1>
+                    <form class="new-txn">
+                        <input type="text" name="item" placeholder="Item" />
+                        <input type="text" name="price" placeholder="Price" />
+                        <input type="text" name="category" placeholder="Category" />
+                        <input type="date" name="date"/>
+                        <button>submit</button>
+                    </form>
+            </header>
+            <div>{{total}}</div>
+            <ul>
+                {{#each txns}}
+                    {{> txn}}
+                {{/each}}
+            </ul>
+        </div>
+        {{else}}
+            <div class="container welcome">
+                <div class="row">
+                    <div class="twelve column hero-title" style="margin-top: 5%">
+                        <h4>Introducing,</h4>
+                        <h1>Argentielle</h1>
+                        <button class="button-primary login" id="loginWithGoogle"><i class="fa fa-google"></i>&nbsp;Sign in with Google</button>
+                        <img class="macbook" src="images/macbook.png" style="margin-top: 3%;">
+                        <div class="description">
+                            <p style="margin-top: 3%;">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
+                                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                            </p>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+        {{/if}}
+    {{/if}}
+</body>

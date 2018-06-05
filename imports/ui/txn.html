@@ -1,0 +1,11 @@
+<template name="txn">
+    {{#if isOwner}}
+        <li>
+            <button class="delete">DELETE</button>
+            <span class="text">{{item}}</span>
+            <span class="text">{{price}}</span>
+            <span class="text">{{category}}</span>
+            <span class="text">{{date}}</span>
+        </li>
+    {{/if}}
+</template>

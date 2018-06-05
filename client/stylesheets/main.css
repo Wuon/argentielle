@@ -1,0 +1,90 @@
+@font-face {
+  font-family: "Circular Black";
+    src: url("/fonts/circular-black.otf");
+    src: url("/fonts/circular-black.ttf") format("truetype");
+  
+  font-weight: normal;
+  font-style: normal;
+ }
+
+html, body {
+  height: 100%;
+}
+
+body {
+    font-family: "Circular Black", "Montserrat SemiBold", sans-serif;
+    
+    background-attachment: fixed;
+   
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+   
+    padding: 0;
+    margin: 0;
+   
+    font-size: 16px;
+    
+    background-color: white;
+
+    /*
+    background: linear-gradient(223deg, #855acf, #5276cf);
+    background-size: 400% 400%;
+
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+    */
+}
+
+@-webkit-keyframes AnimationName {
+  0%{background-position:0% 99%}
+  50%{background-position:100% 2%}
+  100%{background-position:0% 99%}
+}
+
+@-moz-keyframes AnimationName {
+  0%{background-position:0% 99%}
+  50%{background-position:100% 2%}
+  100%{background-position:0% 99%}
+}
+
+@keyframes AnimationName { 
+  0%{background-position:0% 99%}
+  50%{background-position:100% 2%}
+  100%{background-position:0% 99%}
+}
+
+.welcome{
+  color: black;
+  text-align: center;
+}
+
+.login{
+  color: white;
+  background-color: black;
+}
+
+.macbook{
+  max-width: 90%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-animation: fadein 8s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 8s; /* Firefox < 16 */
+        -ms-animation: fadein 8s; /* Internet Explorer */
+         -o-animation: fadein 8s; /* Opera < 12.1 */
+            animation: fadein 8s;
+}
+
+.description{
+  font-family: Raleway;
+  width: 90%;
+  margin: auto;
+  font-size: 16px;
+}
+
+  
+  
