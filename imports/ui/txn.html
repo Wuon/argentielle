@@ -1,11 +1,9 @@
 <template name="txn">
-    {{#if isOwner}}
-        <li>
-            <button class="delete">DELETE</button>
-            <span class="text">{{item}}</span>
-            <span class="text">{{price}}</span>
-            <span class="text">{{category}}</span>
-            <span class="text">{{date}}</span>
-        </li>
-    {{/if}}
+    <div class="card" style="display: inline-block;">
+        <button class="delete">DELETE</button>
+        <div class="text">{{item}}</div>
+        <div class="text">{{price}}</div>
+        <div class="text">{{category}}</div>
+        <div class="text">{{date}}</div>
+    </div>
 </template>

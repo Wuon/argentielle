@@ -4,28 +4,26 @@
         {{#if currentUser}}
         <div class="container">
             <header>
-                <h1 class="gradient-border">Argentielle</h1>
+                <h1>Hello, {{name}} </h1>
+                <button id="logoutWithGoogle">Logout</button>
                 <label class="show-food">
                     <input type="checkbox" />
                     Show Food Only
                 </label>
-                <button id="loginWithGoogle">Login</button>
-                <button id="logoutWithGoogle">Logout</button>
-                    <h1>Hello, {{name}} </h1>
-                    <form class="new-txn">
-                        <input type="text" name="item" placeholder="Item" />
-                        <input type="text" name="price" placeholder="Price" />
-                        <input type="text" name="category" placeholder="Category" />
-                        <input type="date" name="date"/>
-                        <button>submit</button>
-                    </form>
+                <form class="new-txn">
+                    <input type="text" name="item" placeholder="Item" />
+                    <input type="text" name="price" placeholder="Price" />
+                    <input type="text" name="category" placeholder="Category" />
+                    <input type="date" name="date"/>
+                    <button>submit</button>
+                </form>
             </header>
             <div>{{total}}</div>
-            <ul>
+            <span>
                 {{#each txns}}
                     {{> txn}}
                 {{/each}}
-            </ul>
+            </span>
         </div>
         {{else}}
             <div class="container welcome">

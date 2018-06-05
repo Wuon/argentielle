@@ -27,7 +27,7 @@ body {
    
     font-size: 16px;
     
-    background-color: white;
+    background-color:#EEEEEE;
 
     /*
     background: linear-gradient(223deg, #855acf, #5276cf);
@@ -85,6 +85,29 @@ body {
   margin: auto;
   font-size: 16px;
 }
+
+.card {
+  display: inline-flex;
+  position: relative;
+  width: 23.5%;
+  height: 180px;
+  border-radius: 15px;
+  padding: 25px 25px 25px 25px;
+  box-shadow: 0 10px 15px rgba(0,0,0,.3);
+  overflow: hidden;
+  margin: 1em;
+  background: white;
+}
+
+.card:hover{
+  transform: scale(1.01);
+}
+
+.text{
+  clear: both;
+  display: block;
+}
+
 
   
   
