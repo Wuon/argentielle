@@ -1,9 +1,14 @@
 <template name="txn">
-    <div class="card" style="display: inline-block;">
-        <button class="delete">DELETE</button>
-        <div class="text">{{item}}</div>
-        <div class="text">{{price}}</div>
-        <div class="text">{{category}}</div>
-        <div class="text">{{date}}</div>
-    </div>
+    <li class="item">
+        <div class="box">
+            <p>
+                <span class="close delete">&times;</span>
+            </p>
+            <h3 class="title">
+                <span>{{item}} - ${{price}}</span>
+                <p class="byline">{{category}}</p>
+                <p class="type">{{date}}</p>
+            </h3>
+        </div>
+    </li>
 </template>

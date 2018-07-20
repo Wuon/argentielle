@@ -4,26 +4,24 @@
         {{#if currentUser}}
         <div class="container">
             <header>
-                <h1>Hello, {{name}} </h1>
-                <button id="logoutWithGoogle">Logout</button>
+                {{> hamburger}}
+                <!--
                 <label class="show-food">
                     <input type="checkbox" />
                     Show Food Only
                 </label>
-                <form class="new-txn">
-                    <input type="text" name="item" placeholder="Item" />
-                    <input type="text" name="price" placeholder="Price" />
-                    <input type="text" name="category" placeholder="Category" />
-                    <input type="date" name="date"/>
-                    <button>submit</button>
-                </form>
+                -->
             </header>
-            <div>{{total}}</div>
-            <span>
-                {{#each txns}}
-                    {{> txn}}
-                {{/each}}
-            </span>
+            {{#each month}}
+                <h1 class="dateTitle">{{curMonth}} - ${{total}}</h1>
+                <ul class="grid">
+                        {{#each txns}}
+                            {{> txn}}
+                        {{/each}}
+                </ul>
+            {{/each}}
+            {{> floatingButton}}
+            {{> modal}}
         </div>
         {{else}}
             <div class="container welcome">

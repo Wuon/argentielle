@@ -13,4 +13,9 @@ Template.txn.helpers({
   isOwner() {
     return this.owner === Meteor.userId();
   },
+
+  date(){
+    return moment.utc(this.date).format("MM/DD/YYYY");
+  }
 });
+
