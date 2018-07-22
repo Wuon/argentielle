@@ -28,6 +28,8 @@ body {
     font-size: 16px;
     
     background-color:#EEEEEE;
+
+    
 }
 
 i{
@@ -62,31 +64,13 @@ input{
 }
 
 .description{
-  font-family: Raleway;
   width: 90%;
   margin: auto;
   font-size: 16px;
 }
 
 .dateTitle{
-  padding-top: 1em;
-}
-
-.card {
-  display: inline-flex;
-  position: relative;
-  width: 23.5%;
-  height: 180px;
-  border-radius: 15px;
-  padding: 25px 25px 25px 25px;
-  box-shadow: 0 10px 15px rgba(0,0,0,.3);
-  overflow: hidden;
-  margin: 1em;
-  background: white;
-}
-
-.card:hover{
-  transform: scale(1.01);
+  padding-top: 1.5em;
 }
 
 .text{
@@ -94,14 +78,14 @@ input{
   display: block;
 }
 
-
 .grid{
-  column-gap: 0;
+  width: 100%;
   display: block;
-  padding: 10px;
+  padding: 0px;
 }
 
 .item{
+  float: left;
   box-sizing: border-box;
   padding: 5px 9px;
   break-inside: avoid;
@@ -154,7 +138,39 @@ input{
   transition: 0.3s;
 }
 
-.plus{
+.floating-button-prev{
+  z-index: 3; 
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #222222;
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  box-shadow: 0px 2px 5px #666;
+  text-align: center;
+  display: table;
+  animation: 0.3s;
+  transition: 0.3s;
+}
+
+.floating-button-next{
+  z-index: 3; 
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #222222;
+  position: fixed;
+  bottom: 30px;
+  left: 110px;
+  box-shadow: 0px 2px 5px #666;
+  text-align: center;
+  display: table;
+  animation: 0.3s;
+  transition: 0.3s;
+}
+
+.plus, .next, .prev{
   color: white;
   animation: 0.3s;
   transition: 0.3s;
@@ -200,10 +216,7 @@ input{
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 2em auto; 
   padding: 2em;
-  width: 70%; 
-  border-radius: 15px;
 }
 
 /* The Close Button */
@@ -326,12 +339,6 @@ input{
   color: red;
 }
 
-
-#calendar{
-  margin-left: auto;
-  margin-right: auto;
-  width: 320px;
-}
 #calendar_weekdays div{
   display:inline-block;
   vertical-align:top;
@@ -359,12 +366,6 @@ input{
 #calendar_content div{
   float: left;
 }
-#calendar_content div:hover{
-  background-color: #F8F8F8;
-}
-#calendar_content div.blank{
-  background-color: #E8E8E8;
-}
 
 #calendar_header{
   width: 100%;
@@ -383,21 +384,57 @@ input{
   width:70%;
 }
 
-.fa-chevron-right, .fa-chevron-left{
+.fix{
   color: #ffffff;
   float: left;
   width:15%;
   font-size: 1.6em;
 }
+
+.dateActive{
+  font-size: 3em;
+}
+
+@media (min-width: 320px){
+  .item{
+    width: 100%;
+  }
+
+  #calendar{
+    width: 100%; 
+    border-radius: 15px;
+    margin: 7em auto;
+    zoom: 0.6;
+  }
+}
+
+@media (min-width: 375px){
+  .item{
+    width: 100%;
+  }
+  #calendar{
+    width: 100%; 
+    border-radius: 15px;
+    margin: 7em auto;
+    zoom: 0.7;
+  }
+}
+
 @media (min-width: 500px){
-  .grid{
-    column-count: 1;
+  .item{
+    width: 100%;
+  }
+  #calendar{
+    width: 100%; 
+    border-radius: 15px;
+    margin: 7em auto;
+    zoom: 0.6;
   }
 }
 
 @media (min-width: 700px){
-  .grid{
-    column-count: 2;
+  .item{
+    width: 100%;
   }
   .modal-content {
     background-color: #fefefe;
@@ -405,5 +442,32 @@ input{
     padding: 2em;
     width: 50%; 
     border-radius: 15px;
+  }
+  #calendar{
+    margin: 2em auto; 
+    padding: 2em;
+    width: 50%; 
+    border-radius: 15px;
+    zoom: 1;
+  }
+}
+
+@media (min-width: 1000px){
+  .item{
+    width: 33%;
+  }
+  .modal-content {
+    background-color: #fefefe;
+    margin: 2em auto; 
+    padding: 2em;
+    width: 50%; 
+    border-radius: 15px;
+  }
+  #calendar{
+    margin: 2em auto; 
+    padding: 2em;
+    width: 50%; 
+    border-radius: 15px;
+    zoom: 1;
   }
 }

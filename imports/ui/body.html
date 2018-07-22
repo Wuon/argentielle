@@ -12,14 +12,15 @@
                 </label>
                 -->
             </header>
-            {{#each month}}
-                <h1 class="dateTitle">{{curMonth}} - ${{total}}</h1>
-                <ul class="grid">
-                        {{#each txns}}
-                            {{> txn}}
-                        {{/each}}
-                </ul>
-            {{/each}}
+            <span>
+                <h3 class="dateTitle">{{curYear}}</h3>
+                <h1>{{curMonth}} - ${{total}}</h1>
+            </span>
+            <ul class="grid">
+                    {{#each txns}}
+                        {{> txn}}
+                    {{/each}}
+            </ul>
             {{> floatingButton}}
             {{> modal}}
         </div>

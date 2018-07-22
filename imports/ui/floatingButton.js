@@ -3,8 +3,6 @@ import { Template } from 'meteor/templating';
 
 import './floatingButton.html';
 
-var control = true;
-
 Template.floatingButton.events({
 
     'click .plus' : function(event){

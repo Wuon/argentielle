@@ -8,29 +8,40 @@ import './floatingButton.js';
 import './modal.js';
 import './hamburger.js';
 
+var txnMonth = [];
+
 Template.body.onCreated(function bodyOnCreated() {
   this.state = new ReactiveDict();
+  this.state.set('month', moment().format('MMMM'));
+  this.state.set('year', moment().format('YYYY'));
   Meteor.subscribe('txns');
+  var fetch = Txns.find({}, { sort: { date : -1}});
+  fetch.forEach((txn) => {
+    if("July2018"== moment.utc(txn.date).format("MMMMYYYY")){
+      txnMonth.push(txn);
+    }
+  });
 });
  
 Template.body.helpers({
 
   txns() {
     const instance = Template.instance();
+
+    txnMonth = [];
+
     if (instance.state.get('showFood')) {
-      // If hide completed is checked, filter tasks
       return Txns.find({ category : "food" }, { sort: { date: -1 } });
     }
 
     var fetch = Txns.find({}, { sort: { date : -1}});
-    var txnMonth = []
 
     fetch.forEach((txn) => {
-      if(moment().format('MMMMYYYY') == moment.utc(txn.date).format("MMMMYYYY")){
+      if(instance.state.get('month') + instance.state.get('year')== moment.utc(txn.date).format("MMMMYYYY")){
         txnMonth.push(txn);
       }
     });
-    // Otherwise, return all of the tasks
+
     return txnMonth;
   },
 
@@ -39,15 +50,26 @@ Template.body.helpers({
   },
 
   total(){
+    const instance = Template.instance();
     var total = 0;
-    Txns.find({owner : Meteor.userId()}).forEach( function (txn) {
-      total += parseInt(txn.price);
+    var fetch = Txns.find({}, { sort: { date : -1}});
+
+    fetch.forEach((txn) => {
+      if(instance.state.get('month') + instance.state.get('year')== moment.utc(txn.date).format("MMMMYYYY")){
+        total += parseInt(txn.price);
+      }
     });
     return total;
   },
 
   curMonth(){
-    return moment().format('MMMMYYYY');
+    const instance = Template.instance();
+    return instance.state.get('month')
+  },
+
+  curYear(){
+    const instance = Template.instance();
+    return instance.state.get('year')
   },
 
   month(){
@@ -64,5 +86,13 @@ Template.body.events({
 
   'click #loginWithGoogle': function() {
     Meteor.loginWithGoogle({ requestPermissions: ['email', 'profile'] });
+  },
+
+  'click .next' : function(event, instance){
+    instance.state.set('month', moment(moment(instance.state.get('month'), 'MMM').toDate()).add(1, 'month').format('MMMM'));
+  },
+
+  'click .prev' : function(event, instance){
+    instance.state.set('month', moment(moment(instance.state.get('month'), 'MMM').toDate()).add(-1, 'month').format('MMMM'));
   }
 });

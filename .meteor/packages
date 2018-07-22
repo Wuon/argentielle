@@ -24,3 +24,4 @@ service-configuration
 fortawesome:fontawesome
 percolate:momentum
 momentjs:moment
+manuel:reactivearray

@@ -3,6 +3,9 @@ import { Template } from 'meteor/templating';
 
 import './modal.html';
 
+
+var date = moment().toDate();
+
 Template.modal.events({
     'submit .new-txn'(event) {
         event.preventDefault();
@@ -11,14 +14,12 @@ Template.modal.events({
         const item = target.item.value;
         const price = target.price.value;
         const category = target.category.value;
-        const date = moment().toDate();
 
         Meteor.call('txns.insert', item, price, category, date);
 
         target.item.value = '';
         target.price.value = '';
         target.category.value = '';
-        target.date.value = '';
 
         $('.plus').toggleClass('plus-active');
         $('.modal').toggleClass('modal-active');
@@ -26,7 +27,13 @@ Template.modal.events({
     },
 
     'click .date': function (event) {
-        console.log(event.currentTarget.innerHTML);
+        monthYear = document.getElementById("monthYear").innerHTML
+        day = event.currentTarget.innerHTML;
+        date = (moment(day + " " + monthYear, 'DD MMM YYYY').toDate());
+        $(".date").css("background-color", "#ffffff");
+        $(".date").css("color", "#787878");
+        $(event.currentTarget).css("background-color", "#000000");
+        $(event.currentTarget).css("color", "#ffffff");
     },
 
 });
@@ -57,21 +64,11 @@ Template.modal.onRendered(function () {
                 }
             }
             var y = o[n - 1];
-            a.css("background-color", y)
+            a.css("background-color", "#000000")
                 .find("h1")
                 .text(i[n - 1] + " - " + t);
             f.find("div")
-                .css("color", y);
-            $(".date").hover(
-                function() {
-                    $(this).css("background-color", y );
-                    $(this).css("color", "#ffffff" );
-                }, 
-                function() {
-                    $( this ).css("background-color","");
-                    $(this).css("color", "#787878" ); //to remove property set it to ''
-                }
-            );
+                .css("color", "#000000");
             d()
         }
 
