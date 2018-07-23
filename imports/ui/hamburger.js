@@ -15,14 +15,6 @@ Template.hamburger.events({
 
     'click #logoutWithGoogle': function() {
         Meteor.logout();
-      },
-
-    'click #monthly': function() {
-        console.log("hello");
-    },
-
-    'click #yearly': function() {
-        console.log("hello");
     },
 
 });

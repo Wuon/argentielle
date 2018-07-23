@@ -6,6 +6,11 @@ import './modal.html';
 
 var date = moment().toDate();
 
+Template.modal.onCreated(function modalOnCreated() {
+    this.state = new ReactiveDict();
+    this.state.set('date', moment().format('MMMM DD YYYY'));
+});
+
 Template.modal.events({
     'submit .new-txn'(event) {
         event.preventDefault();
@@ -26,16 +31,26 @@ Template.modal.events({
         $('.floating-button').toggleClass('floating-button-active');
     },
 
-    'click .date': function (event) {
+    'click .date': function (event, instance) {
         monthYear = document.getElementById("monthYear").innerHTML
         day = event.currentTarget.innerHTML;
         date = (moment(day + " " + monthYear, 'DD MMM YYYY').toDate());
+        instance.state.set('date', (moment(day + " " + monthYear, 'DD MMM YYYY').format('MMMM DD YYYY')));
         $(".date").css("background-color", "#ffffff");
         $(".date").css("color", "#787878");
         $(event.currentTarget).css("background-color", "#000000");
         $(event.currentTarget).css("color", "#ffffff");
+        $(".test").toggleClass('active');
+        $(".modal-content").toggleClass("inactive");
     },
 
+});
+
+Template.modal.helpers({
+    getDate(){
+        const instance = Template.instance();
+        return instance.state.get('date');
+    }
 });
 
 Template.modal.onRendered(function () {

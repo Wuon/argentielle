@@ -9,18 +9,15 @@ import './modal.js';
 import './hamburger.js';
 
 var txnMonth = [];
+var total = 0;
 
 Template.body.onCreated(function bodyOnCreated() {
   this.state = new ReactiveDict();
   this.state.set('month', moment().format('MMMM'));
   this.state.set('year', moment().format('YYYY'));
+  this.state.set('range', true);
+  this.state.set('isZero', false);
   Meteor.subscribe('txns');
-  var fetch = Txns.find({}, { sort: { date : -1}});
-  fetch.forEach((txn) => {
-    if("July2018"== moment.utc(txn.date).format("MMMMYYYY")){
-      txnMonth.push(txn);
-    }
-  });
 });
  
 Template.body.helpers({
@@ -36,11 +33,19 @@ Template.body.helpers({
 
     var fetch = Txns.find({}, { sort: { date : -1}});
 
-    fetch.forEach((txn) => {
-      if(instance.state.get('month') + instance.state.get('year')== moment.utc(txn.date).format("MMMMYYYY")){
-        txnMonth.push(txn);
-      }
-    });
+    if(instance.state.get('range')){
+      fetch.forEach((txn) => {
+        if(instance.state.get('month') + instance.state.get('year')== moment.utc(txn.date).format("MMMMYYYY")){
+          txnMonth.push(txn);
+        }
+      });
+    }else{
+      fetch.forEach((txn) => {
+        if(instance.state.get('year')== moment.utc(txn.date).format("YYYY")){
+          txnMonth.push(txn);
+        }
+      });
+    }
 
     return txnMonth;
   },
@@ -51,14 +56,29 @@ Template.body.helpers({
 
   total(){
     const instance = Template.instance();
-    var total = 0;
+    total = 0;
     var fetch = Txns.find({}, { sort: { date : -1}});
 
-    fetch.forEach((txn) => {
-      if(instance.state.get('month') + instance.state.get('year')== moment.utc(txn.date).format("MMMMYYYY")){
-        total += parseInt(txn.price);
-      }
-    });
+    if(instance.state.get('range')){
+      fetch.forEach((txn) => {
+        if(instance.state.get('month') + instance.state.get('year')== moment.utc(txn.date).format("MMMMYYYY")){
+          total += parseFloat(txn.price);
+        }
+      });
+    }else{
+      fetch.forEach((txn) => {
+        if(instance.state.get('year')== moment.utc(txn.date).format("YYYY")){
+          total += parseFloat(txn.price);
+        }
+      });
+    }
+
+    if(total == 0){
+      instance.state.set('isZero', true) 
+    }else{
+      instance.state.set('isZero', false) 
+    }
+
     return total;
   },
 
@@ -72,9 +92,14 @@ Template.body.helpers({
     return instance.state.get('year')
   },
 
-  month(){
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
-    return months;
+  getRange(){
+    const instance = Template.instance();
+    return instance.state.get('range')
+  },
+
+  isZero(){
+    const instance = Template.instance();
+    return instance.state.get('isZero')
   }
 
 });
@@ -89,10 +114,34 @@ Template.body.events({
   },
 
   'click .next' : function(event, instance){
-    instance.state.set('month', moment(moment(instance.state.get('month'), 'MMM').toDate()).add(1, 'month').format('MMMM'));
-  },
+    if(instance.state.get('range')){
+      newMonth = moment(moment(instance.state.get('month'), 'MMM').toDate()).add(1, 'month').format('MMMM');
+      if(newMonth == "January"){
+        instance.state.set('year', moment(moment(instance.state.get('year'), 'YYYY').toDate()).add(1, 'year').format('YYYY'));
+      }
+      instance.state.set('month', newMonth);
+    }else{
+      instance.state.set('year', moment(moment(instance.state.get('year'), 'YYYY').toDate()).add(1, 'year').format('YYYY'));
+    }
+   },
 
   'click .prev' : function(event, instance){
-    instance.state.set('month', moment(moment(instance.state.get('month'), 'MMM').toDate()).add(-1, 'month').format('MMMM'));
-  }
+    if(instance.state.get('range')){
+      newMonth = moment(moment(instance.state.get('month'), 'MMM').toDate()).add(-1, 'month').format('MMMM');
+      if(newMonth == "December"){
+        instance.state.set('year', moment(moment(instance.state.get('year'), 'YYYY').toDate()).add(-1, 'year').format('YYYY'));
+      }
+      instance.state.set('month', newMonth);
+    }else{
+      instance.state.set('year', moment(moment(instance.state.get('year'), 'YYYY').toDate()).add(-1, 'year').format('YYYY'));
+    }
+  },
+
+  'click #monthly': function(event, instance) {
+    instance.state.set('range', true);
+  },
+
+  'click #yearly': function(event, instance) {
+    instance.state.set('range', false);
+  },
 });

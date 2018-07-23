@@ -12,15 +12,30 @@
                 </label>
                 -->
             </header>
-            <span>
-                <h3 class="dateTitle">{{curYear}}</h3>
-                <h1>{{curMonth}} - ${{total}}</h1>
-            </span>
-            <ul class="grid">
-                    {{#each txns}}
-                        {{> txn}}
-                    {{/each}}
-            </ul>
+            {{#if getRange}}
+                <span>
+                    <h3 class="dateTitle">{{curYear}}</h3>
+                    <h1>{{curMonth}} - ${{total}}</h1>
+                </span>
+                {{#if isZero}}
+                    <h4>There doesnt seem to be anything here!</h4>
+                    <h4>Add a transction with the + icon :)</h4>
+                {{/if}}
+                <ul class="grid">
+                        {{#each txns}}
+                            {{> txn}}
+                        {{/each}}
+                </ul>
+            {{else}}
+                <span>
+                    <h1 class="dateTitle">{{curYear}} - ${{total}}</h1>
+                </span>
+                <ul class="grid">
+                        {{#each txns}}
+                            {{> txn}}
+                        {{/each}}
+                </ul>
+            {{/if}}
             {{> floatingButton}}
             {{> modal}}
         </div>
